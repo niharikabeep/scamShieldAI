@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamShield AI | Fraud Website & Scam SMS Detection Engine</title>
+  <meta name="description" content="Detect scam websites, phishing URLs, and fraudulent SMS messages using multi-layered AI and threat intelligence analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Background Glow Accents -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>ScamShield<span class="accent-text">AI</span></h1>
+          <span class="brand-sub">Cyber Fraud & Smishing Radar</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-tab="url-scanner" role="tab" aria-selected="true">
+          <span class="tab-icon">🌐</span> Website Scanner
+        </button>
+        <button class="nav-tab" data-tab="sms-scanner" role="tab" aria-selected="false">
+          <span class="tab-icon">💬</span> SMS & Message Scanner
+        </button>
+        <button class="nav-tab" data-tab="samples-gallery" role="tab" aria-selected="false">
+          <span class="tab-icon">🧪</span> Sample Scams
+        </button>
+        <button class="nav-tab" data-tab="history-view" role="tab" aria-selected="false">
+          <span class="tab-icon">📜</span> History <span class="history-badge" id="history-count">0</span>
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <button id="api-settings-btn" class="btn btn-outline btn-sm" title="Configure AI & Threat Intelligence APIs">
+          <span class="icon">⚙️</span>
+          <span class="btn-label">API Settings</span>
+          <span id="api-status-dot" class="status-dot dot-inactive" title="Gemini AI API Not Configured (Using Local Heuristic Engine)"></span>
+        </button>
+        <button id="theme-toggle" class="btn btn-icon" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-container">
+    <!-- Hero Introduction -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span class="pulse-indicator"></span>
+        <span>Multi-Layer Threat Radar Active</span>
+      </div>
+      <h2 class="hero-title">Detect Scam Websites & Fraudulent Messages In Seconds</h2>
+      <p class="hero-desc">
+        Protect yourself against typosquatting, credential harvesting, smishing, fake delivery notices, and brand impersonation.
+        Powered by <strong>Google Gemini AI</strong>, <strong>URLhaus Threat Intel</strong>, and an instant <strong>Heuristic Rule Engine</strong>.
+      </p>
+    </section>
+
+    <!-- Tab 1: Website / URL Scanner -->
+    <section id="url-scanner" class="tab-content active">
+      <div class="scanner-card">
+        <div class="scanner-header">
+          <div class="scanner-icon url-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Website & URL Fraud Scanner</h3>
+            <p>Paste any web link, domain, or IP address to inspect for phishing, spoofing, and malicious hosting.</p>
+          </div>
+        </div>
+
+        <form id="url-form" class="scan-form">
+          <div class="input-group">
+            <div class="input-prefix">https://</div>
+            <input 
+              type="text" 
+              id="url-input" 
+              placeholder="e.g. paypa1-account-verification.xyz/login or google.com" 
+              autocomplete="off" 
+              spellcheck="false"
+              required
+            >
+            <button type="button" id="url-paste-btn" class="input-action-btn" title="Paste from clipboard">📋 Paste</button>
+            <button type="button" id="url-clear-btn" class="input-action-btn" title="Clear input">✕</button>
+          </div>
+
+          <div class="form-footer">
+            <div class="quick-samples">
+              <span class="samples-label">Quick Test:</span>
+              <button type="button" class="sample-chip" data-sample="http://paypa1-security-verification.xyz/login">⚠️ Fake PayPal</button>
+              <button type="button" class="sample-chip" data-sample="http://192.168.1.105/chase-online-banking/verify-identity.html">⚠️ Chase IP Phish</button>
+              <button type="button" class="sample-chip" data-sample="https://netfIix-billing-update.top/account">⚠️ Netflix .top</button>
+              <button type="button" class="sample-chip legit" data-sample="https://www.paypal.com/signin">✅ Genuine PayPal</button>
+            </div>
+
+            <button type="submit" id="url-scan-btn" class="btn btn-primary btn-lg">
+              <span class="btn-text">Scan Website</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tab 2: SMS & Message Fraud Scanner -->
+    <section id="sms-scanner" class="tab-content">
+      <div class="scanner-card">
+        <div class="scanner-header">
+          <div class="scanner-icon sms-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <line x1="8" y1="10" x2="16" y2="10"/>
+              <line x1="8" y1="14" x2="12" y2="14"/>
+            </svg>
+          </div>
+          <div>
+            <h3>SMS & Text Message Scam Scanner</h3>
+            <p>Paste suspicious text messages, WhatsApp alerts, or emails to detect smishing, fake delivery notices, and bank fraud.</p>
+          </div>
+        </div>
+
+        <form id="sms-form" class="scan-form">
+          <div class="textarea-container">
+            <textarea 
+              id="sms-input" 
+              rows="5" 
+              placeholder="Paste suspicious text message here... (e.g. 'USPS: Your package could not be delivered. Update address here: http://usps-redelivery.xyz/track')"
+              required
+            ></textarea>
+            <div class="textarea-actions">
+              <span id="sms-char-counter">0 chars</span>
+              <button type="button" id="sms-paste-btn" class="input-action-btn" title="Paste from clipboard">📋 Paste</button>
+              <button type="button" id="sms-clear-btn" class="input-action-btn" title="Clear input">✕</button>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <div class="quick-samples">
+              <span class="samples-label">Quick Test:</span>
+              <button type="button" class="sample-chip sms-sample" data-index="0">📦 USPS Delivery Scam</button>
+              <button type="button" class="sample-chip sms-sample" data-index="1">🏦 Wells Fargo Alert</button>
+              <button type="button" class="sample-chip sms-sample" data-index="3">🎁 Lottery $50K Prize</button>
+              <button type="button" class="sample-chip sms-sample legit" data-index="4">✅ Genuine Amazon</button>
+            </div>
+
+            <button type="submit" id="sms-scan-btn" class="btn btn-primary btn-lg">
+              <span class="btn-text">Analyze Message</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tab 3: Sample Scams Gallery -->
+    <section id="samples-gallery" class="tab-content">
+      <div class="gallery-container">
+        <div class="gallery-intro">
+          <h3>Explore Real-World Scam Patterns</h3>
+          <p>Click any test case to load it into the scanner and inspect how our detection engines dissect each threat.</p>
+        </div>
+
+        <div class="gallery-grid" id="samples-grid">
+          <!-- Populated dynamically via samples.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Scan History View -->
+    <section id="history-view" class="tab-content">
+      <div class="history-container">
+        <div class="history-header">
+          <div>
+            <h3>Scan History & Threat Reports</h3>
+            <p>Review previously scanned websites and messages stored locally in your browser.</p>
+          </div>
+          <div class="history-actions">
+            <button id="export-history-btn" class="btn btn-outline btn-sm">📥 Export JSON</button>
+            <button id="clear-history-btn" class="btn btn-danger btn-sm">🗑️ Clear History</button>
+          </div>
+        </div>
+
+        <div class="history-table-wrapper">
+          <table class="history-table" id="history-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Target / Preview</th>
+                <th>Risk Score</th>
+                <th>Verdict</th>
+                <th>Engine</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+          <div id="history-empty" class="history-empty">
+            <div class="empty-icon">🛡️</div>
+            <p>No scans recorded yet. Try scanning a website or SMS message above!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assessment Result Card (Shared dynamic display) -->
+    <section id="result-section" class="result-section hidden">
+      <div class="result-card">
+        <div class="result-top-bar">
+          <div class="result-target-info">
+            <span class="result-type-badge" id="res-type-badge">URL</span>
+            <span class="result-target-text" id="res-target-text"></span>
+          </div>
+          <div class="result-meta">
+            <span class="engine-badge" id="res-engine-badge">⚡ Gemini AI</span>
+            <span class="time-badge" id="res-time-badge">Just now</span>
+          </div>
+        </div>
+
+        <div class="result-main-grid">
+          <!-- Left Column: Threat Gauge & Score -->
+          <div class="gauge-column">
+            <div class="gauge-box">
+              <div class="gauge-svg-container">
+                <svg class="score-gauge" viewBox="0 0 200 120">
+                  <path class="gauge-track" d="M 20 105 A 80 80 0 0 1 180 105" fill="none" stroke-width="16" stroke-linecap="round"/>
+                  <path class="gauge-fill" id="gauge-fill-path" d="M 20 105 A 80 80 0 0 1 180 105" fill="none" stroke-width="16" stroke-linecap="round"/>
+                </svg>
+                <div class="gauge-text-overlay">
+                  <span class="gauge-score-value" id="res-score-value">0</span>
+                  <span class="gauge-score-max">/ 100</span>
+                </div>
+              </div>
+              <div class="verdict-banner" id="res-verdict-banner">SAFE</div>
+              <div class="category-pill" id="res-category-pill">Verified Communication</div>
+            </div>
+
+            <div class="threat-intel-box" id="threat-intel-box">
+              <div class="intel-header">
+                <span class="intel-title">Threat Intel Database</span>
+                <span class="intel-status" id="res-intel-status">Checked</span>
+              </div>
+              <p class="intel-detail" id="res-intel-detail">No active entries found in URLhaus malware registry.</p>
+            </div>
+          </div>
+
+          <!-- Right Column: Analysis Summary, Red Flags & Recommendations -->
+          <div class="details-column">
+            <!-- Executive Summary -->
+            <div class="summary-box">
+              <h4 class="box-title">Executive Threat Assessment</h4>
+              <p id="res-summary-text" class="summary-text"></p>
+            </div>
+
+            <!-- Detected Red Flags -->
+            <div class="flags-box">
+              <h4 class="box-title">
+                <span>Detected Red Flags & Threat Indicators</span>
+                <span class="badge badge-counter" id="res-flags-count">0</span>
+              </h4>
+              <div id="res-flags-list" class="flags-list">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Positive Reassurances / Trust Indicators -->
+            <div class="trust-box" id="res-trust-box">
+              <h4 class="box-title">Positive Trust Indicators</h4>
+              <ul id="res-trust-list" class="trust-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+
+            <!-- Extracted URLs (for SMS scans) -->
+            <div class="extracted-urls-box hidden" id="res-extracted-urls-box">
+              <h4 class="box-title">Embedded Links Extracted from Message</h4>
+              <div id="res-extracted-urls-list" class="extracted-urls-list">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Recommended Actions -->
+            <div class="action-box">
+              <h4 class="box-title">Recommended Safety Actions</h4>
+              <ul id="res-actions-list" class="actions-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Footer Actions -->
+        <div class="result-footer">
+          <button id="res-copy-report-btn" class="btn btn-outline btn-sm">📋 Copy Full Report</button>
+          <button id="res-dismiss-btn" class="btn btn-ghost btn-sm">Close Assessment</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- API Settings Modal -->
+  <div id="api-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">⚙️</span>
+          <div>
+            <h3>API & Threat Engine Settings</h3>
+            <p>Connect Google Gemini AI & threat databases for advanced semantic detection.</p>
+          </div>
+        </div>
+        <button id="close-modal-btn" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Gemini API Section -->
+        <div class="settings-group">
+          <div class="settings-label-row">
+            <label for="gemini-api-key-input">Google Gemini API Key</label>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="link-external">
+              Get Free Key from Google AI Studio ↗
+            </a>
+          </div>
+          <div class="input-password-wrapper">
+            <input 
+              type="password" 
+              id="gemini-api-key-input" 
+              placeholder="AIzaSy..." 
+              autocomplete="off" 
+              spellcheck="false"
+            >
+            <button type="button" id="toggle-key-visibility" class="btn-toggle-eye" title="Toggle visibility">👁️</button>
+          </div>
+          <p class="field-hint">
+            Stored securely in your local browser storage. Used for next-generation deep reasoning against complex social engineering and pretexting.
+          </p>
+          <div class="key-test-row">
+            <button type="button" id="test-gemini-key-btn" class="btn btn-outline btn-sm">Test API Connection</button>
+            <span id="gemini-test-feedback" class="test-feedback"></span>
+          </div>
+        </div>
+
+        <!-- Model Selection -->
+        <div class="settings-group">
+          <label for="gemini-model-select">Gemini Model</label>
+          <select id="gemini-model-select" class="form-select">
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fastest & Recommended)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (Deepest Analysis)</option>
+          </select>
+        </div>
+
+        <!-- Engine Toggles -->
+        <div class="settings-group">
+          <label class="settings-section-title">Detection Layers</label>
+          
+          <label class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">URLhaus Threat Database</span>
+              <span class="toggle-desc">Cross-check scanned URLs against active malware and phishing campaigns.</span>
+            </div>
+            <input type="checkbox" id="toggle-urlhaus" class="switch" checked>
+          </label>
+
+          <label class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-label">Client-Side Heuristic Engine</span>
+              <span class="toggle-desc">Instant 25+ pattern zero-latency analysis for typosquatting, TLD risk, and urgency lures.</span>
+            </div>
+            <input type="checkbox" id="toggle-heuristics" class="switch" checked disabled>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="clear-api-key-btn" class="btn btn-ghost btn-sm text-danger">Remove API Key</button>
+        <button type="button" id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <p><strong>ScamShield AI</strong> — Built with HTML5, CSS3, JavaScript, and Google Gemini Threat Intelligence.</p>
+        <p class="footer-disclaimer">
+          Security Advisory: This tool provides heuristic and AI-assisted risk scoring. Always verify sender identity via independent channels and never disclose passwords or banking PINs.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/heuristic.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/samples.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
